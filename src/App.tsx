@@ -221,6 +221,42 @@ export default function App() {
     }
   }, [searchOpen]);
 
+  // ── HARDWARE BACK BUTTON (UX) ───────
+  const overlayState = useRef({ tipJarOpen, posterDismissed, posterEnabled: settings?.poster_enabled, searchOpen, selectedId });
+  useEffect(() => {
+    overlayState.current = { tipJarOpen, posterDismissed, posterEnabled: settings?.poster_enabled, searchOpen, selectedId };
+  }, [tipJarOpen, posterDismissed, settings?.poster_enabled, searchOpen, selectedId]);
+
+  useEffect(() => {
+    window.history.pushState({ isApp: true }, '', window.location.href);
+
+    const handlePopState = (e: PopStateEvent) => {
+      const cur = overlayState.current;
+      let closedSomething = false;
+
+      if (cur.tipJarOpen) {
+        setTipJarOpen(false);
+        closedSomething = true;
+      } else if (!cur.posterDismissed && cur.posterEnabled) {
+        setPosterDismissed(true);
+        closedSomething = true;
+      } else if (cur.searchOpen) {
+        setSearchOpen(false);
+        closedSomething = true;
+      } else if (cur.selectedId !== null) {
+        setSelectedId(null);
+        closedSomething = true;
+      }
+
+      if (closedSomething) {
+        window.history.pushState({ isApp: true }, '', window.location.href);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // ── FETCH CONFIG & STATS ───────
   const fetchAllData = useCallback(async () => {
     try {

@@ -504,26 +504,27 @@ export default function App() {
                       </div>
                     </div>
 
-                    <div className="relative">
+                    <div>
                       <div className="flex items-center bg-slate-800/80 rounded-2xl px-3 py-3 gap-2 border border-slate-700/50 shadow-inner">
                         <Search className="w-4 h-4 text-slate-400 shrink-0" />
                         <input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); }} autoFocus className="bg-transparent text-sm text-slate-200 placeholder-slate-500 outline-none w-full" />
                         {searchQuery && <button onClick={() => { setSearchQuery(''); }} className="text-slate-400 hover:text-white"><X className="w-4 h-4" /></button>}
                       </div>
-                      {searchResults.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-2 glass-panel rounded-2xl overflow-hidden border border-slate-700 max-h-[240px] overflow-y-auto shadow-2xl">
-                          {searchResults.map((c) => (
-                            <button key={c.id} onClick={() => handleSearchSelect(c)} className="w-full flex items-center justify-between px-4 py-3 hover:bg-slate-700 transition border-b border-slate-800 last:border-0 text-left group">
-                              <div>
-                                 <div className="text-sm font-bold text-white group-hover:text-indigo-300 transition-colors">{c.name}</div>
-                                 <div className="text-[10px] text-slate-400 uppercase tracking-widest">{c.district} · AC {c.id}</div>
-                              </div>
-                              <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-indigo-400 transition-colors" />
-                            </button>
-                          ))}
-                        </div>
-                      )}
                     </div>
+
+                    {searchResults.length > 0 && (
+                      <div className="mt-2 rounded-2xl overflow-hidden border border-slate-700/50 max-h-[200px] overflow-y-auto bg-slate-900/90">
+                        {searchResults.map((c) => (
+                          <button key={c.id} onClick={() => handleSearchSelect(c)} className="w-full flex items-center justify-between px-4 py-3 hover:bg-slate-700 transition border-b border-slate-800 last:border-0 text-left group">
+                            <div>
+                               <div className="text-sm font-bold text-white group-hover:text-indigo-300 transition-colors">{c.name}</div>
+                               <div className="text-[10px] text-slate-400 uppercase tracking-widest">{c.district} · AC {c.id}</div>
+                            </div>
+                            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-indigo-400 transition-colors" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
 
                     <button onClick={gotoMyConstituency} className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 bg-indigo-600/90 hover:bg-indigo-500 transition-colors rounded-2xl font-bold text-xs shadow-lg active:scale-95 text-white backdrop-blur-sm">
                       <Locate className="w-3.5 h-3.5" /> Locate Me
@@ -572,17 +573,17 @@ export default function App() {
                    )}
                  </div>
 
-                 {/* Minimal Inline Legend */}
-                 <div className="flex items-center gap-2.5 mt-1 border-t border-slate-700/50 pt-1.5 w-full justify-end">
+                 {/* Minimal Legend - vertical on mobile, horizontal on desktop */}
+                 <div className="grid grid-cols-2 sm:flex sm:items-center gap-x-3 gap-y-0.5 sm:gap-2.5 mt-1 border-t border-slate-700/50 pt-1.5 w-full justify-end">
                     {[
                       { id: 'LDF', hex: 'bg-red-500' },
                       { id: 'UDF', hex: 'bg-green-500' },
                       { id: 'NDA', hex: 'bg-orange-500' },
                       { id: 'OTH', hex: 'bg-slate-500' }
                     ].map(g => (
-                      <div key={g.id} className="flex items-center gap-1">
+                      <div key={g.id} className="flex items-center gap-1 justify-end">
                         <div className={`w-1.5 h-1.5 rounded-full outline outline-1 outline-black/20 ${g.hex}`}></div>
-                        <span className="text-[8px] font-bold text-slate-300 tracking-wider">{g.id}</span>
+                        <span className="text-[7px] sm:text-[8px] font-bold text-slate-300 tracking-wider">{g.id}</span>
                       </div>
                     ))}
                  </div>

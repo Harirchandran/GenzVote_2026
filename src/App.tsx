@@ -141,18 +141,11 @@ function MapContent({
           else leader = 'OTHER';
         }
 
-        const max_votes = Math.max(ldf, udf, nda, oth);
-        // Heatmap opacity formula: higher margin = higher opacity
-        const next_max = Math.max(...[ldf, udf, nda, oth].filter(v => v !== max_votes).concat(0));
-        const margin = max_votes - next_max;
-        const dominanceFactor = total > 0 ? margin / total : 0; 
-        const opacity = Math.min(0.9, Math.max(0.3, dominanceFactor * 2 + 0.3));
-
         const color = total > 0 ? getPartyColor(leader, 1) : 'transparent';
 
         layer.setStyle({
           fillColor: color,
-          fillOpacity: total > 0 ? opacity : 0.1,
+          fillOpacity: total > 0 ? 1 : 0.1,
           color: selectedId === id ? '#ffffff' : '#334155',
           weight: selectedId === id ? 2.5 : 1,
         });

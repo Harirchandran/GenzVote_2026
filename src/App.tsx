@@ -774,18 +774,23 @@ export default function App() {
                     })}
                   </div>
                 ) : (
-                  <div className="grid grid-cols-4 gap-2 text-center">
-                    {[
-                      { label: 'LDF', val: curStatUnified?.ldf || 0, color: 'text-red-400', bg: 'bg-red-950/30' },
-                      { label: 'UDF', val: curStatUnified?.udf || 0, color: 'text-green-400', bg: 'bg-green-950/30' },
-                      { label: 'NDA', val: curStatUnified?.nda || 0, color: 'text-orange-400', bg: 'bg-orange-950/30' },
-                      { label: 'OTH', val: curStatUnified?.oth || 0, color: 'text-slate-400', bg: 'bg-slate-800/30' },
-                    ].map((p) => (
-                      <div key={p.label} className={cn('rounded-xl py-2 px-1 border border-slate-700/50', p.bg)}>
-                        <div className={cn('text-[11px] sm:text-xs font-black tabular-nums', p.color)}>{p.val.toLocaleString()}</div>
-                        <div className="text-[8px] sm:text-[9px] text-slate-400 font-bold tracking-widest mt-0.5">{p.label}</div>
-                      </div>
-                    ))}
+                  <div className="space-y-3">
+                    <div className="bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[10px] sm:text-xs text-center p-2 rounded-xl">
+                      You have already casted your vote. Try voting from a different device.
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 text-center">
+                      {[
+                        { label: 'LDF', val: curStatUnified?.ldf || 0, color: 'text-red-400', bg: 'bg-red-950/30' },
+                        { label: 'UDF', val: curStatUnified?.udf || 0, color: 'text-green-400', bg: 'bg-green-950/30' },
+                        { label: 'NDA', val: curStatUnified?.nda || 0, color: 'text-orange-400', bg: 'bg-orange-950/30' },
+                        { label: 'OTH', val: curStatUnified?.oth || 0, color: 'text-slate-400', bg: 'bg-slate-800/30' },
+                      ].map((p) => (
+                        <div key={p.label} className={cn('rounded-xl py-2 px-1 border border-slate-700/50', p.bg)}>
+                          <div className={cn('text-[11px] sm:text-xs font-black tabular-nums', p.color)}>{p.val.toLocaleString()}</div>
+                          <div className="text-[8px] sm:text-[9px] text-slate-400 font-bold tracking-widest mt-0.5">{p.label}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

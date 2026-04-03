@@ -637,12 +637,10 @@ export default function App() {
           <div className="fixed bottom-24 left-3 sm:bottom-6 sm:left-4 pointer-events-auto z-[10000]">
             <button 
               onClick={() => setTipJarOpen(true)}
-              className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-amber-500/90 hover:bg-amber-400 text-white shadow-[0_0_25px_rgba(245,158,11,0.4)] transition-all active:scale-90 flex items-center justify-center group"
+              className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-900 border border-slate-700 text-amber-500 shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:bg-slate-800 hover:border-amber-500/50 hover:text-amber-400 transition-all active:scale-90 flex items-center justify-center group"
               style={{ animation: searchOpen ? 'none' : 'coffeeShake 3s ease-in-out infinite' }}
             >
               <Coffee className="w-5 h-5 sm:w-6 sm:h-6 drop-shadow-md" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
             </button>
           </div>
 
@@ -654,29 +652,34 @@ export default function App() {
                   <X className="w-4 h-4" />
                 </button>
                 
-                <div className="text-center mb-6">
-                  <div className="text-4xl mb-2">☕</div>
-                  <h2 className="text-xl font-black text-white">Buy the Dev a Treat!</h2>
-                  <p className="text-slate-400 text-xs mt-1">Your support keeps this project running</p>
+                <div className="text-center mb-8 mt-2">
+                  <div className="w-16 h-16 rounded-3xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-4 shadow-inner">
+                    <Coffee className="w-8 h-8 text-indigo-400" />
+                  </div>
+                  <h2 className="text-xl font-bold text-white tracking-tight mb-1">Support the Developer</h2>
+                  <p className="text-slate-400 text-xs">Choose a tier to fuel the midnight coding sessions.</p>
                 </div>
 
                 <div className="space-y-3">
                   {[
-                    { emoji: '☕', label: 'Coffee', amount: 20, color: 'from-amber-600 to-amber-500' },
-                    { emoji: '🥟', label: 'Samosa', amount: 50, color: 'from-emerald-600 to-emerald-500' },
-                    { emoji: '🍕', label: 'Pizza', amount: 100, color: 'from-rose-600 to-rose-500' },
+                    { label: 'Buy me a Coffee', amount: 20, icon: '☕' },
+                    { label: 'Buy me a Samosa', amount: 50, icon: '🥟' },
+                    { label: 'Buy me a Pizza', amount: 100, icon: '🍕' },
                   ].map(tier => (
                     <a
                       key={tier.label}
-                      href={`upi://pay?pa=hariramachandran252003@gmail.com&pn=Hari&am=${tier.amount}&cu=INR&tn=Support%20GenzVote%20-%20${tier.label}`}
-                      className={`flex items-center gap-4 w-full p-4 rounded-2xl bg-gradient-to-r ${tier.color} hover:scale-[1.02] active:scale-95 transition-all shadow-lg group`}
+                      href={`upi://pay?pa=hariramachandran252003@oksbi&pn=Hari&am=${tier.amount}&cu=INR&tn=GenzVote%20Support%20-%20${tier.label}`}
+                      className="flex items-center gap-4 w-full p-4 rounded-2xl bg-slate-800/40 hover:bg-slate-700/60 border border-slate-700/50 hover:border-indigo-500/30 transition-all active:scale-95 group"
                     >
-                      <span className="text-3xl group-hover:scale-110 transition-transform">{tier.emoji}</span>
-                      <div className="flex-1 text-left">
-                        <div className="text-white font-bold text-sm">{tier.label}</div>
-                        <div className="text-white/70 text-xs">Show some love</div>
+                      <div className="w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center text-2xl shadow-inner border border-slate-800/80 group-hover:scale-110 transition-transform">
+                        {tier.icon}
                       </div>
-                      <div className="text-white font-black text-lg">₹{tier.amount}</div>
+                      <div className="flex-1 text-left">
+                        <div className="text-slate-200 font-semibold text-sm group-hover:text-white transition-colors">{tier.label}</div>
+                      </div>
+                      <div className="text-white font-black text-lg bg-slate-900/50 px-3 py-1 rounded-lg border border-slate-800">
+                        ₹{tier.amount}
+                      </div>
                     </a>
                   ))}
                 </div>

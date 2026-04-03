@@ -1,0 +1,1 @@
+const fs=require('fs'); const data=JSON.parse(fs.readFileSync('public/Kerala_140_AC_Geo_Data.json','utf8')); const gC = g=>{let x=0,y=0,c=0; g.coordinates[0][0].forEach(p=>{x+=p[0]; y+=p[1]; c++;}); return [x/c, y/c].map(n=>n.toFixed(2)).join(', ');}; for(let i=84; i<=95; i++) console.log(i, data[i].AC_NO, data[i].AC_NAME, gC(data[i].geometry));

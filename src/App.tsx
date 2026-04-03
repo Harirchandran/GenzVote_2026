@@ -493,7 +493,13 @@ export default function App() {
             {/* Search Icon / Expanded Menu Trigger */}
             <div className="relative">
               {!searchOpen ? (
-                <button onClick={() => setSearchOpen(true)} className="glass-panel p-3 rounded-2xl pointer-events-auto hover:bg-slate-800/80 transition-all border border-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.15)] group active:scale-95 shrink-0 z-[10010] hover:shadow-[0_0_25px_rgba(99,102,241,0.3)]">
+                <button 
+                  onClick={() => {
+                    setSearchOpen(true);
+                    setTimeout(() => searchInputRef.current?.focus(), 50);
+                  }} 
+                  className="glass-panel p-3 rounded-2xl pointer-events-auto hover:bg-slate-800/80 transition-all border border-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.15)] group active:scale-95 shrink-0 z-[10010] hover:shadow-[0_0_25px_rgba(99,102,241,0.3)]"
+                >
                   <Search className="w-5 h-5 text-indigo-300 group-hover:text-white" />
                 </button>
               ) : (
@@ -607,7 +613,13 @@ export default function App() {
           {settings.poster_enabled && !posterDismissed && (
              <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[20000] flex items-center justify-center p-4 pointer-events-auto">
                <div className="bg-slate-900 border border-slate-700 max-w-lg w-full rounded-3xl overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300">
-                  <button onClick={() => setPosterDismissed(true)} className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-black/50 text-white rounded-full hover:bg-black/80 backdrop-blur-md transition">
+                  <button 
+                    onClick={() => {
+                      setPosterDismissed(true);
+                      if (searchOpen) setTimeout(() => searchInputRef.current?.focus(), 50);
+                    }} 
+                    className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-black/50 text-white rounded-full hover:bg-black/80 backdrop-blur-md transition"
+                  >
                      <X className="w-5 h-5" />
                   </button>
                   {settings.poster_url && <img src={settings.poster_url} className="w-full h-auto max-h-[400px] object-cover" />}

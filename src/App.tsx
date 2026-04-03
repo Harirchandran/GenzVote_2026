@@ -210,7 +210,7 @@ export default function App() {
   const [isVoting, setIsVoting] = useState(false);
   const [voteMessage, setVoteMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(true);
   const [posterDismissed, setPosterDismissed] = useState(false);
   const [tipJarOpen, setTipJarOpen] = useState(false);
 

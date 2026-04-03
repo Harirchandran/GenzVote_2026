@@ -561,23 +561,23 @@ export default function App() {
                 </div>
 
                  {/* Total Counter + Leader */}
-                 <div className="flex items-center gap-3 mt-1 sm:mt-0">
+                 <div className="flex flex-col sm:flex-row items-end sm:items-center gap-1.5 sm:gap-3 mt-1 sm:mt-0">
                    <div className="text-right">
                        <div className="text-[7px] sm:text-[8px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Total Votes</div>
-                       <div className="text-xl sm:text-2xl font-black text-white tabular-nums tracking-tighter leading-none">
+                       <div className="text-lg sm:text-2xl font-black text-white tabular-nums tracking-tighter leading-none">
                           {globalState.total.toLocaleString()}
                        </div>
                    </div>
                    {globalState.total > 0 && (
                      <>
-                     <div className="h-6 sm:h-8 w-px bg-slate-700"></div>
-                     <div className={`flex flex-col items-start ${
+                     <div className="hidden sm:block h-6 sm:h-8 w-px bg-slate-700"></div>
+                     <div className={`flex sm:flex-col items-center sm:items-start gap-1.5 sm:gap-0 ${
                         globalState.leader === 'LDF' ? 'text-red-500' : 
                         globalState.leader === 'UDF' ? 'text-green-500' : 
                         globalState.leader === 'NDA' ? 'text-orange-500' : 'text-slate-300'
                      }`}>
-                        <div className="text-[7px] sm:text-[8px] font-bold uppercase tracking-widest mb-0.5 text-inherit opacity-70">Leading</div>
-                        <div className="text-base sm:text-lg font-black tracking-tighter flex items-center gap-1 leading-none">
+                        <div className="text-[7px] sm:text-[8px] font-bold uppercase tracking-widest sm:mb-0.5 text-inherit opacity-70">Leading</div>
+                        <div className="text-base sm:text-lg font-black tracking-tighter flex items-center gap-0.5 sm:gap-1 leading-none">
                            {globalState.leader}
                            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 -mt-0.5 animate-bounce" />
                         </div>
@@ -626,7 +626,7 @@ export default function App() {
             <button 
               onClick={() => setTipJarOpen(true)}
               className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-amber-500/90 hover:bg-amber-400 text-white shadow-[0_0_25px_rgba(245,158,11,0.4)] transition-all active:scale-90 flex items-center justify-center group"
-              style={{ animation: 'coffeeShake 3s ease-in-out infinite' }}
+              style={{ animation: searchOpen ? 'none' : 'coffeeShake 3s ease-in-out infinite' }}
             >
               <Coffee className="w-5 h-5 sm:w-6 sm:h-6 drop-shadow-md" />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>

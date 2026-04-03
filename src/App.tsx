@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { supabase } from './lib/supabase';
 import { getDeviceFingerprint, getPartyColor, cn } from './lib/utils';
-import { Locate, X, Search, ChevronRight, ChevronLeft, Coffee } from 'lucide-react';
+import { Locate, X, Search, ChevronRight, ChevronLeft, Coffee, TrendingUp } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface Stats {
@@ -220,6 +220,13 @@ export default function App() {
   const [allConstituencies, setAllConstituencies] = useState<ConstituencyProps[]>([]);
   const geoLayerRef = useRef<L.GeoJSON | null>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+       setTimeout(() => { searchInputRef.current?.focus(); }, 150);
+    }
+  }, [searchOpen]);
 
   // ── FETCH CONFIG & STATS ───────
   const fetchAllData = useCallback(async () => {
@@ -508,7 +515,7 @@ export default function App() {
                     <div>
                       <div className="flex items-center bg-slate-800/80 rounded-2xl px-3 py-3 gap-2 border border-slate-700/50 shadow-inner">
                         <Search className="w-4 h-4 text-slate-400 shrink-0" />
-                        <input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); }} autoFocus className="bg-transparent text-sm text-slate-200 placeholder-slate-500 outline-none w-full" />
+                        <input ref={searchInputRef} type="text" placeholder="Search..." value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); }} autoFocus className="bg-transparent text-sm text-slate-200 placeholder-slate-500 outline-none w-full" />
                         {searchQuery && <button onClick={() => { setSearchQuery(''); }} className="text-slate-400 hover:text-white"><X className="w-4 h-4" /></button>}
                       </div>
                     </div>
@@ -553,22 +560,27 @@ export default function App() {
                    </div>
                 </div>
 
-                {/* Total Counter + Leader */}
-                 <div className="flex items-center gap-3">
+                 {/* Total Counter + Leader */}
+                 <div className="flex items-center gap-3 mt-1 sm:mt-0">
                    <div className="text-right">
+                       <div className="text-[7px] sm:text-[8px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Total Votes</div>
                        <div className="text-xl sm:text-2xl font-black text-white tabular-nums tracking-tighter leading-none">
                           {globalState.total.toLocaleString()}
                        </div>
                    </div>
                    {globalState.total > 0 && (
                      <>
-                     <div className="h-4 sm:h-5 w-px bg-slate-700"></div>
-                     <div className={`text-base sm:text-xl font-black tracking-tighter ${
+                     <div className="h-6 sm:h-8 w-px bg-slate-700"></div>
+                     <div className={`flex flex-col items-start ${
                         globalState.leader === 'LDF' ? 'text-red-500' : 
                         globalState.leader === 'UDF' ? 'text-green-500' : 
                         globalState.leader === 'NDA' ? 'text-orange-500' : 'text-slate-300'
                      }`}>
-                        {globalState.leader}
+                        <div className="text-[7px] sm:text-[8px] font-bold uppercase tracking-widest mb-0.5 text-inherit opacity-70">Leading</div>
+                        <div className="text-base sm:text-lg font-black tracking-tighter flex items-center gap-1 leading-none">
+                           {globalState.leader}
+                           <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 -mt-0.5 animate-bounce" />
+                        </div>
                      </div>
                      </>
                    )}

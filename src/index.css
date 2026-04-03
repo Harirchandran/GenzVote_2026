@@ -109,3 +109,13 @@ html, body {
 .leaflet-control-attribution a {
   color: rgba(148, 163, 184, 0.6) !important;
 }
+
+/* ── Coffee Shake Animation ── */
+@keyframes coffeeShake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  5% { transform: rotate(-12deg) scale(1.1); }
+  10% { transform: rotate(12deg) scale(1.1); }
+  15% { transform: rotate(-8deg) scale(1.05); }
+  20% { transform: rotate(8deg) scale(1.05); }
+  25% { transform: rotate(0deg) scale(1); }
+}
